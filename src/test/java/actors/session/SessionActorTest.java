@@ -10,5 +10,6 @@ public class SessionActorTest {
 
     @Before
     public void setUp() throws Exception {
+        actor = new SessionActor(null);
     }
 }
