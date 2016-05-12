@@ -17,6 +17,7 @@ public class CreateDBActor extends Actor {
     @Handler("Handle")
     public void handle(CreateDBMessage message) throws Exception{
         System.out.println("Im work!");
+        System.out.println("I'm new change");
         /*
         * For creating my test base with my params and my name for , uncomment text
         **/
