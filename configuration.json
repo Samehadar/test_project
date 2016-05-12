@@ -1,0 +1,199 @@
+{
+  "maps":[
+    {
+      "id" : "createDataBaseMap",
+      "path" : [
+        {
+          "target": "CreateDBActor",
+          "handler": "Handle"
+        },
+        {
+          "target": "dbActor",
+          "handler": "create-collection"
+        },
+        {
+          "target": "ReplyActor",
+          "handler": "Handle"
+        },
+        {
+          "target": "exchanging"
+        }
+      ]
+    },
+    {
+      "id" : "registration",
+      "path" : [
+        {
+          "target" : "ValidateSymbolActor",
+          "handler": "Handle"
+        },
+        {
+          "target": "EncryptionActor",
+          "handler": "Handle"
+        },
+        {
+          "target" : "CheckReg",
+          "handler" : "Handle"
+        },
+        {
+          "target" : "dbActor",
+          "handler" : "find-documents"
+        },
+        {
+          "target" : "AfterCheckReg",
+          "handler" : "Handle"
+        },
+        {
+          "target" : "AddNoteActor",
+          "handler" : "Handle"
+        },
+        {
+          "target" : "dbActor",
+          "handler" : "insert-documents"
+        },
+        {
+          "target" : "RegReplyActor",
+          "handler" : "Handle"
+        },
+        {
+          "target" : "exchanging"
+        }
+      ]
+    },
+    {
+      "id" : "initializeSessionActor",
+      "path" : [
+        {
+          "target": "sessionActor",
+          "handler": "search"
+        },
+        {
+          "target" : "dbActor",
+          "handler" : "find-documents"
+        },
+        {
+          "target": "sessionActor",
+          "handler": "load"
+        },
+        {
+          "target": "ReplyActor",
+          "handler": "Handle"
+        },
+        {
+          "target": "exchanging"
+        }
+      ]
+    },
+    {
+      "id" : "authorization",
+      "path" : [
+        {
+          "target" : "EncryptionActor",
+          "handler" : "Handle"
+        },
+        {
+          "target" : "CheckAuthoriz",
+          "handler" : "Handle"
+        },
+        {
+          "target" : "dbActor",
+          "handler" : "find-documents"
+        },
+        {
+          "target" : "AfterCheckAuthoriz",
+          "handler" : "Handle"
+        },
+        {
+          "target" : "CookieActor",
+          "handler" : "extractSessionId"
+        },
+        {
+          "target" : "sessionActor",
+          "handler" : "getSession"
+        },
+        {
+          "target" : "ShowSessionActor",
+          "handler" : "Handle"
+        },
+        {
+          "target" : "sessionActor",
+          "handler" : "saveSession"
+        },
+        {
+          "target" : "AuthorizReplyActor",
+          "handler" : "Handle"
+        },
+        {
+          "target" : "exchanging"
+        }
+      ]
+    }
+  ],
+  "actors":[
+    {
+      "id" : "actors.reply.ReplyActor",
+      "name": "ReplyActor"
+    },
+    {
+      "id" : "actors.reply.RegistrationReplyActor",
+      "name" : "RegReplyActor"
+    },
+    {
+      "id" : "actors.reply.AuthorizationReplyActor",
+      "name" : "AuthorizReplyActor"
+    },
+    {
+      "id" : "actors.CreateDBActor",
+      "name" : "CreateDBActor"
+    },
+    {
+      "id" : "actors.EncryptionPasswordActor",
+      "name" : "EncryptionActor"
+    },
+    {
+      "id" : "actors.CheckValidSymbolActor",
+      "name" : "ValidateSymbolActor"
+    },
+    {
+      "id" : "actors.authorization.CheckLogPassInBaseActor",
+      "name" : "CheckAuthoriz"
+    },
+    {
+      "id" : "actors.authorization.CheckResultLogPassInBaseActor",
+      "name" : "AfterCheckAuthoriz"
+    },
+    {
+      "id" : "actors.authorization.WorkWithCookieActor",
+      "name" : "ShowSessionActor"
+    },
+    {
+      "id" : "actors.registration.AddNoteInDataBaseActor",
+      "name" : "AddNoteActor"
+    },
+    {
+      "id" : "actors.registration.RegistrationCheckActor",
+      "name" : "CheckReg"
+    },
+    {
+      "id" : "actors.session.SessionActor",
+      "name" : "sessionActor",
+      "databaseActorPath" : "dbActor",
+      "collectionName" : "dbnames"
+    },
+    {
+      "id" : "actors.registration.RegistrationAfterCheckActor",
+      "name" : "AfterCheckReg"
+    },
+    {
+      "id" : "info.smart_tools.smartactors.core.actors.service.CookieActor",
+      "name" : "CookieActor"
+    },
+    {
+      "id": "info.smart_tools.smartactors.core.actors.db_accessor.DatabaseAccessActor",
+      "name": "dbActor",
+      "username": "admin",
+      "password": "password",
+      "url": "jdbc:postgresql://localhost:5432/documents"
+    }
+  ]
+}

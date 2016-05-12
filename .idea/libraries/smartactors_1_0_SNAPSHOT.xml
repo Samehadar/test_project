@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="smartactors-1.0-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/info/smart_tools/smartactors/1.0-SNAPSHOT/smartactors-1.0-SNAPSHOT.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/info/smart_tools/smartactors/1.0-SNAPSHOT/smartactors-1.0-SNAPSHOT.jar!/" />
+    </SOURCES>
+  </library>
+</component>
