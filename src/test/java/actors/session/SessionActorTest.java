@@ -1,8 +1,9 @@
 package actors.session;
 
 import org.junit.Before;
+import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 public class SessionActorTest {
 
@@ -10,8 +11,16 @@ public class SessionActorTest {
 
     @Before
     public void setUp() throws Exception {
-        actor = new SessionActor(null);
 
+    }
 
+    @Test
+    public void injectFieldInMessageForSearch() throws Exception{
+        SessionMessage message = mock(SessionMessage.class);
+        actor.beforeSearchNamesInDB(message);
+
+        verify(message).setPageNumber(1);
+        verify(message).setPageSize(100);
+        verify(message).setCollectionName("dbnames");
     }
 }

@@ -55,7 +55,7 @@ public class SessionActor extends Actor {
 
     @Handler("search")
     //TODO:: Handles Exception
-    public void afterSearchNamesInDB(SessionMessage message) throws Exception{
+    public void beforeSearchNamesInDB(SessionMessage message) throws Exception{
         message.setPageNumber(1);
         message.setPageSize(100);
         message.setCollectionName(collectionName);
@@ -123,7 +123,7 @@ public class SessionActor extends Actor {
 
     /**
      * Handles sessions from DB. It's impossible to cause directly, because searchResult can be empty.
-     * @param message the message which passed {@Link DatabaseAccessActor} with handler("find-documents")
+     * @param message the message which passed {DatabaseAccessActor} with handler("find-documents")
      * @throws ReadValueException
      * @throws ChangeValueException
      */
