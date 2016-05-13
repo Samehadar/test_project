@@ -15,7 +15,6 @@ public class SessionActorTest {
     @Before
     public void setUp() throws Exception {
         actor = new SessionActor(createInitIObject());
-
     }
 
     @Test
