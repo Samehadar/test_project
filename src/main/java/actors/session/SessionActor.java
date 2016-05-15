@@ -59,7 +59,6 @@ public class SessionActor extends Actor {
         message.setPageNumber(1);
         message.setPageSize(100);
         message.setCollectionName(collectionName);
-        System.out.println(collectionName);
 
         IObject idObject = IOC.resolve(IObject.class);
         IObject equalsObject = IOC.resolve(IObject.class);
@@ -233,11 +232,14 @@ public class SessionActor extends Actor {
      * Insert database number in sessionId
      * @param sessionId sessionId value from session object
      */
-    private String modifySessionId(String sessionId){
+    private String modifySessionId(String sessionId) throws ReadValueException {
         if (sessionId == null || sessionId.equals("")){
             throw new IllegalArgumentException("Invalid session id");
         }
 
+        if (dbNames == null || dbNames.size() == 0) {
+            throw new ReadValueException("DBnames is not initialize");
+        }
         Object[] ids = dbNames.keySet().toArray();
         Integer numberOfDB = (int)(Math.random() * ids.length);
         //Integer numberOfDB = dbNames.entrySet().stream().findAny().get().getKey();

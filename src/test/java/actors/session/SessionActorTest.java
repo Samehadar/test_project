@@ -1,12 +1,19 @@
 package actors.session;
 
-import info.smart_tools.smartactors.core.FieldName;
-import info.smart_tools.smartactors.core.IObject;
-import info.smart_tools.smartactors.core.ReadValueException;
+import info.smart_tools.smartactors.core.*;
+import info.smart_tools.smartactors.core.addressing.AddressingFields;
+import info.smart_tools.smartactors.core.addressing.maps.MessageMap;
+import info.smart_tools.smartactors.core.addressing.targeting.actors.ActorPath;
+import info.smart_tools.smartactors.core.impl.SMObjectBuilder;
+import info.smart_tools.smartactors.utils.ioc.IOC;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.internal.exceptions.ExceptionIncludingMockitoWarnings;
+
+import java.util.*;
 
 import static org.mockito.Mockito.*;
+import static org.junit.Assert.*;
 
 public class SessionActorTest {
 
@@ -14,7 +21,11 @@ public class SessionActorTest {
 
     @Before
     public void setUp() throws Exception {
-        actor = new SessionActor(createInitIObject());
+        actor = new SessionActor(new SMObjectBuilder()
+                        .with("databaseActorPath", "dbActor")
+                        .with("sessionActorPath", "sessionActor")
+                        .with("collectionName", "dbnames")
+                        .build());
     }
 
     @Test
@@ -34,4 +45,27 @@ public class SessionActorTest {
         when(conf.getValue(eq(new FieldName("collectionName")))).thenReturn("dbnames");
         return conf;
     }
+
+    //search when  initialize db's
+    @Test(expected = ReadValueException.class)
+    public void resultFromSearchInDBIsNull() throws ReadValueException {
+        SessionMessage message = mock(SessionMessage.class);
+        when(message.getSearchResult()).thenReturn(null);
+
+        actor.loadNames(message);
+        verify(message.getSearchResult(),times(1));
+    }
+
+    @Test(expected = ReadValueException.class)
+    public void gettingSession_When_DBnamesIsNotInitialize() throws ReadValueException, ChangeValueException {
+        SessionMessage message = mock(SessionMessage.class);
+        when(message.getSessionId()).thenReturn(null);
+
+        actor.getSessionHandler(message);
+        verify(message.getSessionId());
+
+        assertEquals(notNull(), message.getSessionId());
+        assertEquals(null, message.getSession());
+    }
+
 }
