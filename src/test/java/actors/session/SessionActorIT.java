@@ -123,7 +123,7 @@ public class SessionActorIT extends ActorsIntegrationTestBase{
         fullNameField.inject(sessions, "sessions4");
         dbnames.add(sessions);
 
-        IMessage message0 = new Message(messageWithMapOf(search, getSessionTarget, testReceiverTarget).build());
+        IMessage message0 = new Message(messageWithMapOf(load, getSessionTarget, testReceiverTarget).build());
         message0.setValue(new FieldName("searchResult"), dbnames);
         message0.setValue(new FieldName("sessionId"), null);
         IMessage message = spy(message0);
